@@ -1,0 +1,12 @@
+<li ng-repeat="acceso in fnAccesoOrigen()">
+	<a href="{{acceso.ruta}}"> <i class="{{acceso.icono}}"></i> <span
+		class="">{{acceso.descripcion}}</span> 
+		<span ng-show="fnAccesoDetalle(acceso.id_acceso_menu).length > 0 " class="fa arrow">
+		</span>
+	</a>
+
+		<ul ng-repeat="nodoPAcceso in fnAccesoDetalle(acceso.id_acceso_menu)" class="nav nav-second-level collapse">
+			<li><a href="{{nodoPAcceso.ruta}}">{{nodoPAcceso.descripcion}}</a></li>
+			
+		</ul>
+</li>

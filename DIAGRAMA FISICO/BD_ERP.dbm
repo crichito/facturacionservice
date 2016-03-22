@@ -1,0 +1,844 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+CAUTION: Do not modify this file unless you know what you are doing.
+         Unexpected results may occur if the code is changed deliberately.
+-->
+<dbmodel>
+<schema name="public" protected="true" fill-color="#e1e1e1" sql-disabled="true">
+</schema>
+
+<schema name="Seguridad" fill-color="#ff0000">
+	<role name="postgres"/>
+	<comment><![CDATA[Esquema orientado al modulo de seguridad]]></comment>
+</schema>
+
+<schema name="General" fill-color="#e1e1e1">
+</schema>
+
+<schema name="Contenedor" fill-color="#e1e1e1">
+</schema>
+
+<schema name="Inventario" fill-color="#e1e1e1">
+</schema>
+
+<database name="BD_ERP">
+</database>
+
+<table name="GENM_USUARIO">
+	<schema name="&quot;Seguridad&quot;"/>
+	<position x="35" y="17"/>
+	<column name="ID_USUARIO" not-null="true">
+		<type name="integer"/>
+	</column>
+	<column name="LOGIN">
+		<type name="char" length="10"/>
+	</column>
+	<column name="CONTRASEÑA">
+		<type name="varchar" length="200"/>
+	</column>
+	<column name="FLG_ESTADO">
+		<type name="bool"/>
+	</column>
+	<column name="FEC_REG">
+		<type name="date"/>
+	</column>
+	<column name="ID_USU_REG">
+		<type name="date"/>
+	</column>
+	<column name="FEC_ACT">
+		<type name="date"/>
+	</column>
+	<column name="ID_USU_ACT">
+		<type name="integer"/>
+	</column>
+	<constraint name="PK_ID_USUARIO" type="pk-constr" factor="10" table="&quot;Seguridad&quot;.&quot;GENM_USUARIO&quot;">
+		<columns names="ID_USUARIO" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="GENM_PERSONA_NATURAL">
+	<schema name="&quot;General&quot;"/>
+	<position x="55" y="353"/>
+	<column name="ID_PERSONA_NATURAL" not-null="true">
+		<type name="integer"/>
+	</column>
+	<column name="NOMBRE">
+		<type name="varchar" length="200"/>
+	</column>
+	<column name="APELLIDO_PATERNO">
+		<type name="varchar" length="200"/>
+	</column>
+	<column name="APELLIDO_MATERNO">
+		<type name="varchar" length="200"/>
+	</column>
+	<column name="NUMERO_DOCUMENTO">
+		<type name="varchar" length="50"/>
+	</column>
+	<column name="CORREO_ELECTRONICO">
+		<type name="varchar" length="200"/>
+	</column>
+	<column name="FLG_ESTADO">
+		<type name="bool"/>
+	</column>
+	<column name="FEC_REG">
+		<type name="date"/>
+	</column>
+	<column name="ID_USU_REG">
+		<type name="integer"/>
+	</column>
+	<column name="FEC_ACT">
+		<type name="date"/>
+	</column>
+	<constraint name="PK_ID_PERSONA_NATURAL" type="pk-constr" factor="10" table="&quot;General&quot;.&quot;GENM_PERSONA_NATURAL&quot;">
+		<columns names="ID_PERSONA_NATURAL" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<relationship name="GENM_USUARIO_has_one_GENM_PERSONA_NATURAL" type="rel11"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 col-indexes="8" constr-indexes="1,2"
+	 src-table="&quot;General&quot;.&quot;GENM_PERSONA_NATURAL&quot;"
+	 dst-table="&quot;Seguridad&quot;.&quot;GENM_USUARIO&quot;"
+	 src-required="false" dst-required="false"/>
+
+<table name="GENM_PERSONA_JURIDICA">
+	<schema name="&quot;General&quot;"/>
+	<position x="634" y="423"/>
+	<column name="ID_PERSONA_JURIDICA" not-null="true">
+		<type name="integer"/>
+	</column>
+	<column name="RAZON_SOCIAL">
+		<type name="varchar" length="400"/>
+	</column>
+	<column name="NOMBRE_COMERCIAL">
+		<type name="varchar" length="400"/>
+	</column>
+	<column name="RUC">
+		<type name="integer"/>
+	</column>
+	<column name="CORREO_INSTITUCIONAL">
+		<type name="varchar" length="100"/>
+	</column>
+	<column name="FLG_ESTADO">
+		<type name="bool"/>
+	</column>
+	<column name="FEC_REG">
+		<type name="date"/>
+	</column>
+	<column name="ID_USU_REG">
+		<type name="integer"/>
+	</column>
+	<column name="FEC_ACT">
+		<type name="date"/>
+	</column>
+	<column name="ID_USU_ACT">
+		<type name="integer"/>
+	</column>
+	<constraint name="PK_ID_PERSONA_JURIDICA" type="pk-constr" factor="10" table="&quot;General&quot;.&quot;GENM_PERSONA_JURIDICA&quot;">
+		<columns names="ID_PERSONA_JURIDICA" ref-type="src-columns"/>
+	</constraint>
+	<constraint name="U_RUC" type="uq-constr" factor="10" table="&quot;General&quot;.&quot;GENM_PERSONA_JURIDICA&quot;">
+		<columns names="ID_PERSONA_JURIDICA,RUC" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="MAE_TIPO_DOCUMENTO">
+	<schema name="&quot;Contenedor&quot;"/>
+	<position x="538" y="859"/>
+	<column name="ID_TIPO_DOCUMENTO" not-null="true">
+		<type name="integer"/>
+	</column>
+	<column name="DESCRIPCION_TIPO_DOCUMENTO">
+		<type name="varchar" length="60"/>
+	</column>
+	<column name="FLG_ESTADO">
+		<type name="bool"/>
+	</column>
+	<constraint name="PK_ID_TIPO_DOCUMENTO" type="pk-constr" factor="10" table="&quot;Contenedor&quot;.&quot;MAE_TIPO_DOCUMENTO&quot;">
+		<columns names="ID_TIPO_DOCUMENTO" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<relationship name="TIPO_DOCUMENTO_has_many_GENM_PERSONA_NATURAL" type="rel1n"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 col-indexes="10" constr-indexes="1"
+	 src-table="&quot;Contenedor&quot;.&quot;MAE_TIPO_DOCUMENTO&quot;"
+	 dst-table="&quot;General&quot;.&quot;GENM_PERSONA_NATURAL&quot;"
+	 src-required="false" dst-required="false"/>
+
+<table name="GENM_DIRECCION_PERSONA_NATURAL">
+	<schema name="&quot;General&quot;"/>
+	<position x="39" y="859"/>
+	<column name="ID_DIRECCION_PERSONA_NATURAL" not-null="true">
+		<type name="integer"/>
+	</column>
+	<column name="DETALLE_VIA">
+		<type name="varchar" length="150"/>
+	</column>
+	<column name="DETALLE_URBANIZACION">
+		<type name="varchar" length="150"/>
+	</column>
+	<column name="REFERENCIA">
+		<type name="varchar" length="150"/>
+	</column>
+	<column name="NUMERO">
+		<type name="varchar" length="15"/>
+	</column>
+	<column name="DIRECCION_COMPLETA">
+		<type name="varchar" length="600"/>
+	</column>
+	<column name="FLG_ESTADO">
+		<type name="bool"/>
+	</column>
+	<column name="FEC_REG">
+		<type name="date"/>
+	</column>
+	<column name="ID_USU_REG">
+		<type name="integer"/>
+	</column>
+	<column name="FEC_ACT">
+		<type name="date"/>
+	</column>
+	<column name="ID_USU_ACT">
+		<type name="integer"/>
+	</column>
+	<constraint name="PK_ID_DIRECCION_PERSONA_NATURAL" type="pk-constr" factor="10" table="&quot;General&quot;.&quot;GENM_DIRECCION_PERSONA_NATURAL&quot;">
+		<columns names="ID_DIRECCION_PERSONA_NATURAL" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<relationship name="GENM_PERSONA_NATURAL_has_many_GENM_DIRECCION_PERSONA_NATURAL" type="rel1n"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 col-indexes="11" constr-indexes="0"
+	 src-table="&quot;General&quot;.&quot;GENM_PERSONA_NATURAL&quot;"
+	 dst-table="&quot;General&quot;.&quot;GENM_DIRECCION_PERSONA_NATURAL&quot;"
+	 src-required="false" dst-required="false"/>
+
+<table name="GENM_DIRECCION_PERSONA_JURIDICA">
+	<schema name="&quot;General&quot;"/>
+	<position x="1695.31" y="628.923"/>
+	<column name="ID_DIRECCION_PERSONA_JURIDICA" not-null="true">
+		<type name="integer"/>
+	</column>
+	<column name="DESCRIPCION_LOCAL">
+		<type name="varchar" length="150"/>
+	</column>
+	<column name="DETALLE_VIA">
+		<type name="varchar" length="150"/>
+	</column>
+	<column name="DETALLE_URBANIZACION">
+		<type name="varchar" length="150"/>
+	</column>
+	<column name="NUMERO">
+		<type name="varchar" length="20"/>
+	</column>
+	<column name="DIRECCION_COMPLETA">
+		<type name="varchar" length="600"/>
+	</column>
+	<column name="FLG_ESTADO">
+		<type name="bool"/>
+	</column>
+	<column name="FEC_REG">
+		<type name="date"/>
+	</column>
+	<column name="ID_USU_REG">
+		<type name="integer"/>
+	</column>
+	<column name="FEC_ACT">
+		<type name="date"/>
+	</column>
+	<column name="ID_USU_ACT">
+		<type name="integer"/>
+	</column>
+	<constraint name="PK_ID_DIRECCION_PERSONA_JURIDICA" type="pk-constr" factor="10" table="&quot;General&quot;.&quot;GENM_DIRECCION_PERSONA_JURIDICA&quot;">
+		<columns names="ID_DIRECCION_PERSONA_JURIDICA" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="MAE_TIPO_VIA">
+	<schema name="&quot;Contenedor&quot;"/>
+	<position x="981" y="1184"/>
+	<column name="ID_TIPO_VIA" not-null="true">
+		<type name="integer"/>
+	</column>
+	<column name="DESCRIPCION_TIPO_VIA">
+		<type name="varchar" length="60"/>
+	</column>
+	<column name="FLG_ESTADO">
+		<type name="bool"/>
+	</column>
+	<constraint name="PK_ID_TIPO_VIA" type="pk-constr" factor="10" table="&quot;Contenedor&quot;.&quot;MAE_TIPO_VIA&quot;">
+		<columns names="ID_TIPO_VIA" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="MAE_TIPO_DENOMINACION">
+	<schema name="&quot;Contenedor&quot;"/>
+	<position x="961" y="933"/>
+	<column name="ID_TIPO_DENOMINACION">
+		<type name="integer"/>
+	</column>
+	<column name="DESCRIPCION_TIPO_DENOMINACION">
+		<type name="varchar" length="60"/>
+	</column>
+	<column name="FLG_ESTADO">
+		<type name="bool"/>
+	</column>
+	<constraint name="PK_ID_TIPO_DENOMINACION" type="pk-constr" factor="10" table="&quot;Contenedor&quot;.&quot;MAE_TIPO_DENOMINACION&quot;">
+		<columns names="ID_TIPO_DENOMINACION" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<relationship name="MAE_TIPO_DENOMINACION_has_many_GENM_DIRECCION_PERSONA_NATURAL" type="rel1n"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 col-indexes="12" constr-indexes="2"
+	 src-table="&quot;Contenedor&quot;.&quot;MAE_TIPO_DENOMINACION&quot;"
+	 dst-table="&quot;General&quot;.&quot;GENM_DIRECCION_PERSONA_NATURAL&quot;"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="MAE_TIPO_DENOMINACION_has_many_GENM_DIRECCION_PERSONA_JURIDICA" type="rel1n"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 col-indexes="11" constr-indexes="1"
+	 src-table="&quot;Contenedor&quot;.&quot;MAE_TIPO_DENOMINACION&quot;"
+	 dst-table="&quot;General&quot;.&quot;GENM_DIRECCION_PERSONA_JURIDICA&quot;"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="MAE_TIPO_VIA_has_many_GENM_DIRECCION_PERSONA_JURIDICA" type="rel1n"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 col-indexes="12" constr-indexes="2"
+	 src-table="&quot;Contenedor&quot;.&quot;MAE_TIPO_VIA&quot;"
+	 dst-table="&quot;General&quot;.&quot;GENM_DIRECCION_PERSONA_JURIDICA&quot;"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="MAE_TIPO_VIA_has_many_GENM_DIRECCION_PERSONA_NATURAL" type="rel1n"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 col-indexes="13" constr-indexes="3"
+	 src-table="&quot;Contenedor&quot;.&quot;MAE_TIPO_VIA&quot;"
+	 dst-table="&quot;General&quot;.&quot;GENM_DIRECCION_PERSONA_NATURAL&quot;"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="GENM_PERSONA_JURIDICA_has_many_GENM_DIRECCION_PERSONA_JURIDICA" type="rel1n"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 col-indexes="13" constr-indexes="3"
+	 src-table="&quot;General&quot;.&quot;GENM_PERSONA_JURIDICA&quot;"
+	 dst-table="&quot;General&quot;.&quot;GENM_DIRECCION_PERSONA_JURIDICA&quot;"
+	 src-required="false" dst-required="false"/>
+
+<table name="MAE_PERFIL_USUARIO">
+	<schema name="&quot;Seguridad&quot;"/>
+	<position x="635" y="337"/>
+	<column name="ID_PERFIL_USUARIO" not-null="true">
+		<type name="integer"/>
+	</column>
+	<column name="DESCRIPCION_PERFIL_USUARIO">
+		<type name="varchar" length="200"/>
+	</column>
+	<column name="FLG_USUARIO">
+		<type name="bool"/>
+	</column>
+	<constraint name="PK_ID_PERFIL_USUARIO" type="pk-constr" factor="10" table="&quot;Seguridad&quot;.&quot;MAE_PERFIL_USUARIO&quot;">
+		<columns names="ID_PERFIL_USUARIO" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<relationship name="MAE_PERFIL_USUARIO_has_many_GENM_USUARIO" type="rel1n"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 col-indexes="9" constr-indexes="3"
+	 src-table="&quot;Seguridad&quot;.&quot;MAE_PERFIL_USUARIO&quot;"
+	 dst-table="&quot;Seguridad&quot;.&quot;GENM_USUARIO&quot;"
+	 src-required="false" dst-required="false"/>
+
+<table name="MAE_TIPO_PRODUCTO">
+	<schema name="&quot;Inventario&quot;"/>
+	<comment><![CDATA[TABLA PARA LA CLASIFICACION DE PRODUCTOS]]></comment>
+	<position x="2001.25" y="51.25"/>
+	<column name="ID_TIPO_PRODUCTO" not-null="true">
+		<type name="serial"/>
+		<comment><![CDATA[IDENTIFICADOR DE PRODUCTO]]></comment>
+	</column>
+	<column name="DESCRIPCION">
+		<type name="varchar" length="300"/>
+		<comment><![CDATA[DESCRIPCION DEL TIPO DE PRODUCTO]]></comment>
+	</column>
+	<column name="FLG_ESTADO">
+		<type name="bool"/>
+		<comment><![CDATA[ESTADO DEL REGISTRO 0: INACTIVO, 1: ACTIVO]]></comment>
+	</column>
+	<column name="ID_TIPO_PRODUCTO_REF">
+		<type name="integer"/>
+	</column>
+	<column name="FEC_REG">
+		<type name="timestamp" with-timezone="true"/>
+	</column>
+	<column name="ID_USU_REG">
+		<type name="integer"/>
+	</column>
+	<column name="FEC_ACT">
+		<type name="timestamp" with-timezone="true"/>
+	</column>
+	<column name="ID_USU_ACT">
+		<type name="integer"/>
+	</column>
+	<constraint name="PK_TIPO_PRODUCTO" type="pk-constr" factor="10" table="&quot;Inventario&quot;.&quot;MAE_TIPO_PRODUCTO&quot;">
+		<columns names="ID_TIPO_PRODUCTO" ref-type="src-columns"/>
+	</constraint>
+	<constraint name="UK_TIPO_PRODUCTO_DESCRIPCION" type="uq-constr" factor="10" table="&quot;Inventario&quot;.&quot;MAE_TIPO_PRODUCTO&quot;">
+		<columns names="DESCRIPCION" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="GENM_PRODUCTO">
+	<schema name="&quot;Inventario&quot;"/>
+	<position x="2792.5" y="18.75"/>
+	<column name="ID_PRODUCTO">
+		<type name="serial"/>
+	</column>
+	<column name="DESCRIPCION">
+		<type name="varchar" length="200"/>
+	</column>
+	<column name="PRECIO_UNITARIO" default-value="0">
+		<type name="numeric" length="18" precision="5"/>
+	</column>
+	<column name="PRECIO_VENTA" default-value="0">
+		<type name="numeric" length="18" precision="5"/>
+	</column>
+	<column name="FLG_ESTADO">
+		<type name="bool"/>
+	</column>
+	<column name="ID_USU_REG">
+		<type name="integer"/>
+	</column>
+	<column name="FEC_REG">
+		<type name="timestamp" with-timezone="true"/>
+	</column>
+	<column name="ID_USU_ACT">
+		<type name="integer"/>
+	</column>
+	<column name="FEC_ACT">
+		<type name="timestamp" with-timezone="true"/>
+	</column>
+	<constraint name="PK_MAE_PRODUCTO" type="pk-constr" factor="10" table="&quot;Inventario&quot;.&quot;GENM_PRODUCTO&quot;">
+		<columns names="ID_PRODUCTO" ref-type="src-columns"/>
+	</constraint>
+	<constraint name="UK_MAE_PRODUCTO_DESCRIPCION" type="uq-constr" factor="10" table="&quot;Inventario&quot;.&quot;GENM_PRODUCTO&quot;">
+		<columns names="DESCRIPCION" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<relationship name="MAE_TIPO_PRODUCTO_has_many_GENM_PRODUCTO" type="rel1n"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 col-indexes="9" constr-indexes="2"
+	 src-table="&quot;Inventario&quot;.&quot;MAE_TIPO_PRODUCTO&quot;"
+	 dst-table="&quot;Inventario&quot;.&quot;GENM_PRODUCTO&quot;"
+	 src-required="true" dst-required="false"/>
+
+<table name="MAE_IGV">
+	<schema name="&quot;General&quot;"/>
+	<position x="1888.75" y="294.75"/>
+	<column name="ID_IGV">
+		<type name="serial"/>
+	</column>
+	<column name="IGV" not-null="true" default-value="0">
+		<type name="numeric" length="18" precision="5"/>
+	</column>
+	<column name="FECHA_INICIO">
+		<type name="timestamp" with-timezone="true"/>
+	</column>
+	<column name="FECHA_FIN">
+		<type name="timestamp" with-timezone="true"/>
+	</column>
+	<column name="ID_USU_REG">
+		<type name="integer"/>
+	</column>
+	<column name="FEC_REG">
+		<type name="timestamp" with-timezone="true"/>
+	</column>
+	<column name="ID_USU_ACT">
+		<type name="integer" with-timezone="true"/>
+	</column>
+	<column name="FEC_ACT">
+		<type name="timestamp" with-timezone="true"/>
+	</column>
+	<constraint name="PK_MAE_IGV" type="pk-constr" factor="10" table="&quot;General&quot;.&quot;MAE_IGV&quot;">
+		<columns names="ID_IGV" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="MAE_ANO">
+	<schema name="&quot;General&quot;"/>
+	<position x="1127.75" y="37"/>
+	<column name="ID_ANO">
+		<type name="serial"/>
+	</column>
+	<column name="ANO">
+		<type name="integer" length="100"/>
+	</column>
+	<column name="ID_USU_REG">
+		<type name="integer"/>
+	</column>
+	<column name="FEC_REG">
+		<type name="timestamp" with-timezone="true"/>
+	</column>
+	<column name="ID_USU_ACT">
+		<type name="integer"/>
+	</column>
+	<column name="FEC_ACT">
+		<type name="timestamp" with-timezone="true"/>
+	</column>
+	<constraint name="PK_MAE_ANO" type="pk-constr" factor="10" table="&quot;General&quot;.&quot;MAE_ANO&quot;">
+		<columns names="ID_ANO" ref-type="src-columns"/>
+	</constraint>
+	<constraint name="UK_MAE_ANO" type="uq-constr" factor="10" table="&quot;General&quot;.&quot;MAE_ANO&quot;">
+		<columns names="ID_ANO,ANO" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="GENM_ALMACEN">
+	<schema name="&quot;Inventario&quot;"/>
+	<position x="1374.42" y="435.635"/>
+	<column name="ID_ALMACEN">
+		<type name="serial"/>
+	</column>
+	<column name="DESCRIPCION">
+		<type name="varchar" length="100"/>
+	</column>
+	<column name="FLG_ESTADO">
+		<type name="bool"/>
+	</column>
+	<column name="ID_USU_REG">
+		<type name="integer"/>
+	</column>
+	<column name="FEC_REG">
+		<type name="timestamp" with-timezone="true"/>
+	</column>
+	<column name="ID_USU_ACT">
+		<type name="integer"/>
+	</column>
+	<column name="FEC_ACT">
+		<type name="timestamp" with-timezone="true"/>
+	</column>
+	<constraint name="PK_GENM_ALMACEN" type="pk-constr" factor="10" table="&quot;Inventario&quot;.&quot;GENM_ALMACEN&quot;">
+		<columns names="ID_ALMACEN" ref-type="src-columns"/>
+	</constraint>
+	<constraint name="PK_GENM_INVENTARIO" type="uq-constr" factor="10" table="&quot;Inventario&quot;.&quot;GENM_ALMACEN&quot;">
+		<columns names="DESCRIPCION" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="GENM_INVENTARIO">
+	<schema name="&quot;Inventario&quot;"/>
+	<position x="2817.42" y="742.846"/>
+	<column name="ID_INVENTARIO">
+		<type name="serial"/>
+	</column>
+	<column name="FECHA_REGISTRO">
+		<type name="timestamp" with-timezone="true"/>
+	</column>
+	<column name="ID_USU_REG">
+		<type name="integer"/>
+	</column>
+	<column name="FEC_REG">
+		<type name="timestamp" with-timezone="true"/>
+	</column>
+	<column name="ID_USU_ACT">
+		<type name="integer"/>
+	</column>
+	<column name="FEC_ACT">
+		<type name="timestamp" with-timezone="true"/>
+	</column>
+	<column name="CANTIDAD">
+		<type name="integer"/>
+	</column>
+	<column name="PRECIO_UNITARIO">
+		<type name="numeric" length="18" precision="5"/>
+	</column>
+	<column name="FLG_ESTADO">
+		<type name="bool"/>
+	</column>
+	<column name="DESCUENTO">
+		<type name="numeric" length="18" precision="5"/>
+	</column>
+	<column name="PRECIO_TOTAL">
+		<type name="integer"/>
+	</column>
+	<constraint name="PK_GENM_INVENTARIO" type="pk-constr" factor="10" table="&quot;Inventario&quot;.&quot;GENM_INVENTARIO&quot;">
+		<columns names="ID_INVENTARIO" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<relationship name="GENM_ALMACEN_has_many_GENM_INVENTARIO" type="rel1n"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 col-indexes="6" constr-indexes="1"
+	 src-table="&quot;Inventario&quot;.&quot;GENM_ALMACEN&quot;"
+	 dst-table="&quot;Inventario&quot;.&quot;GENM_INVENTARIO&quot;"
+	 src-required="true" dst-required="false">
+	<label ref-type="name-label">
+		<position x="83.0145" y="8.48043"/>
+	</label>
+</relationship>
+
+<table name="GENM_NOTA_MOVIMIENTO">
+	<schema name="&quot;Inventario&quot;"/>
+	<position x="1785.33" y="933.923"/>
+	<column name="ID_NOTA_MOVIMIENTO">
+		<type name="serial"/>
+	</column>
+	<column name="FECHA_INGRESO">
+		<type name="timestamp" with-timezone="true"/>
+	</column>
+	<column name="ID_USU_REG">
+		<type name="integer"/>
+	</column>
+	<column name="FEC_REG">
+		<type name="timestamp" with-timezone="true"/>
+	</column>
+	<column name="ID_USU_ACT">
+		<type name="integer"/>
+	</column>
+	<column name="FEC_ACT">
+		<type name="timestamp" with-timezone="true"/>
+	</column>
+	<column name="TOTAL_DESCUENTO">
+		<type name="numeric" length="18" precision="5"/>
+	</column>
+	<column name="IGV">
+		<type name="numeric" length="18" precision="5"/>
+	</column>
+	<column name="TOTAL">
+		<type name="numeric" length="18" precision="5"/>
+	</column>
+	<column name="FLG_ESTADO">
+		<type name="bool"/>
+	</column>
+	<constraint name="PK_GENM_NOTA_ENTRADA" type="pk-constr" factor="10" table="&quot;Inventario&quot;.&quot;GENM_NOTA_MOVIMIENTO&quot;">
+		<columns names="ID_NOTA_MOVIMIENTO" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="MAE_MOTIVO_NOTA_MOVIMIENTO">
+	<schema name="&quot;Inventario&quot;"/>
+	<position x="2246" y="1225.46"/>
+	<column name="ID_MOTIVO_NOTA_ENTRADA">
+		<type name="serial"/>
+	</column>
+	<column name="DESCRIPCION">
+		<type name="varchar" length="100"/>
+	</column>
+	<column name="ID_USU_REG">
+		<type name="integer"/>
+	</column>
+	<column name="FEC_REG">
+		<type name="timestamp" with-timezone="true"/>
+	</column>
+	<column name="ID_USU_ACT">
+		<type name="integer"/>
+	</column>
+	<column name="FEC_ACT">
+		<type name="timestamp" with-timezone="true"/>
+	</column>
+	<constraint name="PK_MAE_MOTIVO_NOTA_ENTRADA" type="pk-constr" factor="10" table="&quot;Inventario&quot;.&quot;MAE_MOTIVO_NOTA_MOVIMIENTO&quot;">
+		<columns names="ID_MOTIVO_NOTA_ENTRADA" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="GEND_NOTA_MOVIMIENTO_DETALLE">
+	<schema name="&quot;Inventario&quot;"/>
+	<position x="2360" y="309"/>
+	<column name="ID_NOTA_ENTRADA_DETALLE">
+		<type name="serial"/>
+	</column>
+	<column name="CANTIDAD" not-null="true" default-value="0">
+		<type name="integer"/>
+	</column>
+	<column name="PRECIO_UNITARIO" not-null="true" default-value="0">
+		<type name="numeric" length="18" precision="5"/>
+	</column>
+	<column name="DESCUENTO" not-null="true" default-value="0">
+		<type name="numeric" length="18" precision="5"/>
+	</column>
+	<column name="PRECIO_TOTAL" not-null="true" default-value="0">
+		<type name="integer"/>
+	</column>
+	<column name="FLG_ESTADO">
+		<type name="bool"/>
+	</column>
+	<column name="ID_USU_REG">
+		<type name="integer"/>
+	</column>
+	<column name="FEC_REG">
+		<type name="timestamp" with-timezone="true"/>
+	</column>
+	<column name="ID_USU_ACT">
+		<type name="integer"/>
+	</column>
+	<column name="FEC_ACT">
+		<type name="timestamp" with-timezone="true"/>
+	</column>
+	<constraint name="PK_GEND_NOTA_ENTRADA_DETALLE" type="pk-constr" factor="10" table="&quot;Inventario&quot;.&quot;GEND_NOTA_MOVIMIENTO_DETALLE&quot;">
+		<columns names="ID_NOTA_ENTRADA_DETALLE" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<relationship name="GENM_PRODUCTO_has_many_GEND_NOTA_ENTRADA_DETALLE" type="rel1n"
+	 src-col-pattern="{sc}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 col-indexes="10" constr-indexes="1"
+	 src-table="&quot;Inventario&quot;.&quot;GENM_PRODUCTO&quot;"
+	 dst-table="&quot;Inventario&quot;.&quot;GEND_NOTA_MOVIMIENTO_DETALLE&quot;"
+	 src-required="false" dst-required="false"/>
+
+<table name="MAE_ESTADO_PRODUCTO">
+	<schema name="&quot;Inventario&quot;"/>
+	<position x="3087.5" y="389"/>
+	<column name="ID_ESTADO_PRODUCTO">
+		<type name="serial"/>
+	</column>
+	<column name="DESCRIPCION" not-null="true">
+		<type name="varchar" length="100"/>
+	</column>
+	<column name="FLG_ESTADO">
+		<type name="bool"/>
+	</column>
+	<column name="ID_USU_REG">
+		<type name="integer"/>
+	</column>
+	<column name="FEC_REG">
+		<type name="timestamp" with-timezone="true"/>
+	</column>
+	<column name="ID_USU_ACT">
+		<type name="integer"/>
+	</column>
+	<column name="FEC_ACT">
+		<type name="timestamp" with-timezone="true"/>
+	</column>
+	<constraint name="PK_MAE_ESTADO_PRODUCTO" type="pk-constr" factor="10" table="&quot;Inventario&quot;.&quot;MAE_ESTADO_PRODUCTO&quot;">
+		<columns names="ID_ESTADO_PRODUCTO" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<relationship name="MAE_ESTADO_PRODUCTO_has_many_GEND_NOTA_ENTRADA_DETALLE" type="rel1n"
+	 src-col-pattern="{sc}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 col-indexes="11" constr-indexes="2"
+	 src-table="&quot;Inventario&quot;.&quot;MAE_ESTADO_PRODUCTO&quot;"
+	 dst-table="&quot;Inventario&quot;.&quot;GEND_NOTA_MOVIMIENTO_DETALLE&quot;"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="MAE_MOTIVO_NOTA_MOVIMIENTO_has_many_GENM_NOTA_MOVIMIENTO" type="rel1n"
+	 src-col-pattern="{sc}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 col-indexes="9" constr-indexes="1"
+	 src-table="&quot;Inventario&quot;.&quot;MAE_MOTIVO_NOTA_MOVIMIENTO&quot;"
+	 dst-table="&quot;Inventario&quot;.&quot;GENM_NOTA_MOVIMIENTO&quot;"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="GENM_NOTA_MOVIMIENTO_has_many_GEND_NOTA_MOVIMIENTO_DETALLE" type="rel1n"
+	 src-col-pattern="{sc}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 col-indexes="12" constr-indexes="3"
+	 src-table="&quot;Inventario&quot;.&quot;GENM_NOTA_MOVIMIENTO&quot;"
+	 dst-table="&quot;Inventario&quot;.&quot;GEND_NOTA_MOVIMIENTO_DETALLE&quot;"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="MAE_IGV_has_many_GENM_NOTA_MOVIMIENTO" type="rel1n"
+	 src-col-pattern="{sc}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 col-indexes="10" constr-indexes="2"
+	 src-table="&quot;General&quot;.&quot;MAE_IGV&quot;"
+	 dst-table="&quot;Inventario&quot;.&quot;GENM_NOTA_MOVIMIENTO&quot;"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="GENM_INVENTARIO_has_one_GEND_NOTA_MOVIMIENTO_DETALLE" type="rel11"
+	 src-col-pattern="{sc}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 col-indexes="11" constr-indexes="2,3"
+	 src-table="&quot;Inventario&quot;.&quot;GEND_NOTA_MOVIMIENTO_DETALLE&quot;"
+	 dst-table="&quot;Inventario&quot;.&quot;GENM_INVENTARIO&quot;"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="GENM_NOTA_MOVIMIENTO_has_one_GENM_ALMACEN" type="rel11"
+	 src-col-pattern="{sc}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 col-indexes="11" constr-indexes="3,4"
+	 src-table="&quot;Inventario&quot;.&quot;GENM_ALMACEN&quot;"
+	 dst-table="&quot;Inventario&quot;.&quot;GENM_NOTA_MOVIMIENTO&quot;"
+	 src-required="false" dst-required="false">
+	<label ref-type="name-label">
+		<position x="0" y="0"/>
+	</label>
+</relationship>
+
+<table name="GENM_RESUMEN_INVENTARIO">
+	<schema name="&quot;Inventario&quot;"/>
+	<position x="2300" y="813.846"/>
+	<column name="ID_RESUMEN_INVENTARIO">
+		<type name="serial"/>
+	</column>
+	<column name="FLG_ESTADO">
+		<type name="bool"/>
+	</column>
+	<column name="ID_USU_REG">
+		<type name="integer"/>
+	</column>
+	<column name="ID_USU_ACT">
+		<type name="integer"/>
+	</column>
+	<column name="FEC_REG">
+		<type name="timestamp"/>
+	</column>
+	<column name="FEC_ACT">
+		<type name="timestamp"/>
+	</column>
+	<column name="CANTIDAD">
+		<type name="integer"/>
+	</column>
+</table>
+
+<relationship name="GENM_RESUMEN_INVENTARIO_has_one_GENM_ALMACEN" type="rel11"
+	 src-col-pattern="{sc}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 col-indexes="7" constr-indexes="0,1"
+	 src-table="&quot;Inventario&quot;.&quot;GENM_ALMACEN&quot;"
+	 dst-table="&quot;Inventario&quot;.&quot;GENM_RESUMEN_INVENTARIO&quot;"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="GENM_RESUMEN_INVENTARIO_has_one_GENM_PRODUCTO" type="rel11"
+	 src-col-pattern="{sc}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 col-indexes="8" constr-indexes="2,3"
+	 src-table="&quot;Inventario&quot;.&quot;GENM_PRODUCTO&quot;"
+	 dst-table="&quot;Inventario&quot;.&quot;GENM_RESUMEN_INVENTARIO&quot;"
+	 src-required="false" dst-required="false"/>
+
+</dbmodel>

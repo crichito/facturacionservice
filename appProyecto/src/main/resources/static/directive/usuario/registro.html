@@ -1,0 +1,131 @@
+<div class="row">
+	<div class="col-lg-12">
+		<div class="ibox float-e-margins">
+			<div class="ibox-title">
+				<h5>Editar de Usuario</h5>
+				<div class="ibox-tools">
+					<a class="collapse-link"> <i class="fa fa-chevron-up"></i>
+					</a> <a class="dropdown-toggle" data-toggle="dropdown" href="#"> <i
+						class="fa fa-wrench"></i>
+					</a> <a class="fullscreen-link"> <i class="fa fa-expand"></i>
+					</a> <a class="close-link"> <i class="fa fa-times"></i>
+					</a>
+				</div>
+			</div>
+			<div class="ibox-content">
+				<form class="form-horizontal" name="usuarioForm"
+					ng-submit="submitForm(usuarioForm.$valid)" novalidate>
+					<div class="form-group"
+						ng-class="{ 'has-error' : usuarioForm.login.$invalid && !usuarioForm.login.$pristine }">
+						<label class="col-sm-2 control-label">Login</label>
+						<div class="col-sm-4">
+							<input type="hidden" ng-model="usuarioData.key" /> <input
+								type="hidden" ng-model="usuarioData.genmPersonaNatural.key" /> <input
+								type="text" name="login" class="form-control"
+								ng-model="usuarioData.login" required />
+
+							<p
+								ng-show="usuarioForm.login.$invalid && !usuarioForm.login.$pristine"
+								class="help-block">El campo login es obligatorio</p>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="col-sm-2 control-label">Contrase&ntilde;a</label>
+						<div class="col-sm-4">
+							<input type="password" ng-model="usuarioData.contrasena"
+								class="form-control" required />
+						</div>
+						<label class="col-sm-2 control-label">Repetir
+							Contrase&ntilde;a</label>
+						<div class="col-sm-4">
+							<input type="password" ng-model="usuarioData.contrasenaValidacion"
+								class="form-control" required />
+						</div>
+					</div>
+
+					<div class="form-group"
+						ng-class="{ 'has-error' : usuarioForm.tipoDocumento.$invalid }">
+						<label class="col-sm-2 control-label">Tipo Doc.</label>
+						<div class="col-sm-4">
+							<ui-select name="tipoDocumento" required
+								ng-model="usuarioData.genmPersonaNatural.keyTipoDocumento"
+								theme="bootstrap" ng-disabled="disabled" style="width: 300px;">
+							<ui-select-match placeholder="Seleccione">{{$select.selected.descripcion_tipo_documento}}</ui-select-match>
+							<ui-select-choices
+								repeat="tipoDocumento.key as tipoDocumento in listaTipoDocumento | filter: $select.search">
+							<span
+								ng-bind-html="tipoDocumento.descripcion_tipo_documento | highlight: $select.search"></span>
+
+							</ui-select-choices> </ui-select>
+						</div>
+
+						<label class="col-sm-2 control-label">N&uacute;mero Doc.</label>
+						<div class="col-sm-4">
+
+							<div class="input-group">
+								<input type="text" class="form-control" required
+									ng-blur="cambioPersonaNatural"
+									ng-model="usuarioData.genmPersonaNatural.numero_documento" />
+								<span class="input-group-btn">
+									<button type="button" class="btn btn-primary"
+										ng-click="getPersonaNaturalByDocumento(usuarioData.genmPersonaNatural.keyTipoDocumento,usuarioData.genmPersonaNatural.numero_documento)">
+										<i class="fa fa-search"></i>
+									</button>
+
+								</span>
+							</div>
+
+						</div>
+					</div>
+
+					<div class="form-group"
+						ng-class="{ 'has-error' : usuarioForm.nombreCompleto.$invalid }">
+						<label class="col-sm-2 control-label">Nombre</label>
+						<div class="col-sm-10">
+							<input name="nombreCompleto" required type="text"
+								class="form-control" readonly="readonly"
+								ng-model="usuarioData.genmPersonaNatural.nombreCompleto" />
+						</div>
+					</div>
+
+
+					<div class="form-group"
+						ng-class="{ 'has-error' : !usuarioForm.usuarioPerfiles.$modelValue.length }">
+						<label class="col-sm-2 control-label">Perfil</label>
+						<div class="col-sm-10">
+							<ui-select name="usuarioPerfiles" required multiple="true"
+								ng-model="usuarioData.listaMaePerfil" theme="bootstrap"
+								ng-disabled="disabled" style="width:100%"> <ui-select-match
+								placeholder="Seleccione perfil del usuario">{{$item.descripcion}}</ui-select-match>
+							<ui-select-choices style="width:100%"
+								repeat="perfil in listaPerfil | propsFilter: {descripcion: $select.search}"
+								refresh-delay="100"> {{perfil.descripcion}}
+							</ui-select-choices> </ui-select>
+
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label">Activo</label>
+						<div class="col-sm-10">
+							<div class="checkbox">
+								<input id="checkbox"  type="checkbox" ng-model="usuarioData.flg_estado"> <label
+									for="checkbox1"></label>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-sm-4 col-sm-offset-2">
+							<button class="btn btn-white" type="submit">Cancel</button>
+							<button ng-disabled="usuarioForm.$invalid"
+								class="btn btn-primary" type="submit">Guardar</button>
+						</div>
+					</div>
+				</form>
+
+
+			</div>
+		</div>
+	</div>
+
+</div>
