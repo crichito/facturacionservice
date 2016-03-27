@@ -1,0 +1,104 @@
+<div class="row">
+	<div class="col-lg-12">
+		<div class="ibox float-e-margins">
+			<div class="ibox-title">
+				<h5>Registro de Persona Natural</h5>
+				<div class="ibox-tools">
+					<a class="collapse-link"> <i class="fa fa-chevron-up"></i>
+					</a> <a class="dropdown-toggle" data-toggle="dropdown" href="#"> <i
+						class="fa fa-wrench"></i>
+					</a> <a class="fullscreen-link"> <i class="fa fa-expand"></i>
+					</a> <a class="close-link"> <i class="fa fa-times"></i>
+					</a>
+				</div>
+			</div>
+			<div class="ibox-content">
+				<form class="form-horizontal" name="personaNaturalForm"
+					ng-submit="submitForm(personaNaturalForm.$valid)" novalidate>
+					<div class="form-group"
+						ng-class="{ 'has-error' : personaNaturalForm.nombre.$invalid && !personaNaturalForm.nombre.$pristine }">
+						<label class="col-sm-2 control-label">Nombre</label>
+						<div class="col-sm-10">
+							<input type="hidden" ng-model="personaNaturalData.key" />
+							<input
+								type="text" name="nombre" class="form-control"
+								ng-model="personaNaturalData.nombre" required />
+
+						</div>
+					</div>
+
+					<div class="form-group"
+					ng-class="{ 'has-error' : personaNaturalForm.apellido_paterno.$invalid && !personaNaturalForm.apellido_paterno.$pristine }">
+						<label class="col-sm-2 control-label">Ape. Paterno</label>
+						<div class="col-sm-10">
+							<input type="text" name="apellido_paterno" ng-model="personaNaturalData.apellido_paterno"
+								class="form-control" required />
+						</div>
+					</div>
+					
+					<div class="form-group"
+					ng-class="{ 'has-error' : personaNaturalForm.apellido_materno.$invalid && !personaNaturalForm.apellido_materno.$pristine }">
+						<label class="col-sm-2 control-label">Ape. Materno</label>
+						<div class="col-sm-10">
+							<input name="apellido_materno" type="text" ng-model="personaNaturalData.apellido_materno"
+								class="form-control" required />
+						</div>
+					</div>
+
+					<div class="form-group"
+						ng-class="{ 'has-error' : usuarioForm.tipoDocumento.$invalid }">
+						<label class="col-sm-2 control-label">Tipo Doc.</label>
+						<div class="col-sm-4">
+							<ui-select name="tipoDocumento" required
+								ng-model="personaNaturalData.maeTipoDocumento.key"
+								theme="bootstrap" ng-disabled="disabled" style="width: 300px;">
+							<ui-select-match placeholder="Seleccione">{{$select.selected.descripcion_tipo_documento}}</ui-select-match>
+							<ui-select-choices
+								repeat="tipoDocumento.key as tipoDocumento in listaTipoDocumento | filter: $select.search">
+							<span
+								ng-bind-html="tipoDocumento.descripcion_tipo_documento | highlight: $select.search"></span>
+
+							</ui-select-choices> </ui-select>
+						</div>
+
+						<label class="col-sm-2 control-label">N&uacute;mero Doc.</label>
+						<div class="col-sm-4">
+							<input type="text" class="form-control" required
+									ng-model="personaNaturalData.numero_documento" />
+						</div>
+					</div>
+
+					<div class="form-group"
+						ng-class="{ 'has-error' : usuarioForm.nombreCompleto.$invalid }">
+						<label class="col-sm-2 control-label">Correo electronico</label>
+						<div class="col-sm-10">
+							<input name="nombreCompleto" required type="email"
+								class="form-control" 
+								ng-model="personaNaturalData.correo_electronico" />
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<label class="col-sm-2 control-label">Activo</label>
+						<div class="col-sm-10">
+							<div class="checkbox">
+								<input id="checkbox"  type="checkbox" ng-model="personaNaturalData.flg_estado"> <label
+									for="checkbox1"></label>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-sm-4 col-sm-offset-2">
+							<button class="btn btn-white" type="submit">Cancel</button>
+							<button ng-disabled="personaNaturalForm.$invalid"
+								class="btn btn-primary" type="submit">Guardar</button>
+						</div>
+					</div>
+				</form>
+
+
+			</div>
+		</div>
+	</div>
+
+</div>
